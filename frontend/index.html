@@ -3,22 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SkyWave Bikinis</title>
+  <title>Oursy Bikinis</title>
+  <meta name="description" content="Designed for ocean lovers and beach dreamers. Oursy bikinis blend comfort, confidence, and effortless summer style." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
 
-  <nav class="navbar">
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
     <div class="container">
-      <div class="nav-brand">
-        <a href="index.html">Skywave</a>
-      </div>
-      <ul class="nav-menu">
+      <a href="#" class="nav-brand">Oursy</a>
+      <ul class="nav-menu" id="nav-menu">
         <li><a href="#about">About</a></li>
-        <li><a href="catalogue.html">Catalogue</a></li>
-        <li><a href="faq.html">FAQ & Contact</a></li>
+        <li><a href="#catalogue">Catalogue</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="nav-toggle" aria-label="Toggle navigation">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
         <span></span>
         <span></span>
         <span></span>
@@ -26,66 +29,115 @@
     </div>
   </nav>
 
+  <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-text">
-      <h1>Feel the Sun, Ride the Waves</h1>
-      <p>
-        Designed for ocean lovers and beach dreamers. SkyWave bikinis blend
-        comfort, confidence, and effortless summer style.
-      </p>
-      <button class="btn-primary">Shop Now</button>
+    <div class="hero-bg">
+      <img src="images/hero2.png" alt="Beach sunset" />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <h1>Feel the Sun,<br />Ride the Waves</h1>
+      <p>Designed for ocean lovers and beach dreamers. Effortless summer style that celebrates you.</p>
+      <a href="catalogue.html" class="btn-hero">Shop Now</a>
+    </div>
+    <div class="scroll-indicator"></div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="about" class="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why Oursy</h2>
+        <p>Quality meets comfort in every stitch</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Premium Fabrics</h3>
+          <p>Soft, durable, and quick-drying materials made for all-day comfort.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Flattering Fits</h3>
+          <p>Thoughtfully designed silhouettes that celebrate every body.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Beach to Pool</h3>
+          <p>Versatile styles perfect for swimming, sunbathing, or seaside cafés.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="features">
-    <div class="feature-card">
-      <h3>Premium Fabrics</h3>
-      <p>Soft, durable, and quick-drying materials made for all-day comfort.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Flattering Fits</h3>
-      <p>Thoughtfully designed silhouettes that celebrate every body.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Beach to Pool</h3>
-      <p>Versatile styles perfect for swimming, sunbathing, or seaside cafés.</p>
-    </div>
-  </section>
-
-  <section id="catalogue-preview" class="catalogue-preview">
-    <h2>Peek at Our Bikini's</h2>
-    <div class="catalogue-grid">
-      <div class="catalogue-item">
-        <img src="images/bikini-black1.jpeg" alt="Bikini 1" />
-        <div class="catalogue-item-title">
-          <h3>Bikini 1</h3>
+  <!-- Catalogue Preview Section -->
+  <section id="catalogue" class="catalogue">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Collection</h2>
+        <p>Curated pieces for your perfect summer</p>
+      </div>
+      <div class="catalogue-grid">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="images/bikini-black1-removebg-preview1.png" alt="Midnight Set" />
           </div>
-      </div>
-      <div class="catalogue-item">
-        <img src="images/bikini-blackpink1.jpeg" alt="Bikini 2" />
-        <div class="catalogue-item-title">
-          <h3>Bikini 2</h3>
+          <div class="product-info">
+            <h3>Midnight Set</h3>
+            <p class="price">$89</p>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image">
+            <img src="images/bikini-blue1-removebg-preview.png" alt="Sand Dune Set" />
+          </div>
+          <div class="product-info">
+            <h3>Sand Dune Set</h3>
+            <p class="price">$85</p>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image">
+            <img src="images/bikini-red1-removebg-preview.png" alt="Blush Wave Set" />
+          </div>
+          <div class="product-info">
+            <h3>Blush Wave Set</h3>
+            <p class="price">$92</p>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image">
+            <img src="images/bikini-white1-removebg-preview.png" alt="Sunset Glow Set" />
+          </div>
+          <div class="product-info">
+            <h3>Sunset Glow Set</h3>
+            <p class="price">$88</p>
+          </div>
         </div>
       </div>
-      <div class="catalogue-item">
-        <img src="images/bikini-blue1.jpeg" alt="Bikini 3" />
-        <div class="catalogue-item-title">
-          <h3>Bikini 3</h3>
-        </div>
-      </div>
-      <div class="catalogue-item">
-        <img src="images/bikini-brown1.jpeg" alt="Bikini 4" />
-        <div class="catalogue-item-title">
-          <h3>Bikini 4</h3>
-        </div>
+      <div class="catalogue-cta">
+        <a href="catalogue.html" class="btn-outline">View Full Catalogue</a>
       </div>
     </div>
-    <button class="btn-secondary">View Full Catalogue</button>
   </section>
 
-  <footer>
-    © 2026 SkyWave Bikinis · Made for endless summers
+  <!-- Footer -->
+  <footer id="contact" class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Skywave</h3>
+          <p>Made for endless summers</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Instagram</a>
+          <a href="#">Pinterest</a>
+          <a href="mailto:hello@skywave.com">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Skywave Bikinis · All rights reserved</p>
+      </div>
+    </div>
   </footer>
-<script src="js/index.js"></script>
+
+  <script src="js/index.js"></script>
 </body>
 </html>

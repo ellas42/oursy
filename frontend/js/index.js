@@ -74,6 +74,56 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // ========================================
+  // Render Catalogue Preview (First 4 products)
+  // ========================================
+  function renderCataloguePreview() {
+    const catalogueGrid = document.getElementById('catalogue-grid');
+    
+    if (!catalogueGrid) return;
+    
+    // Display only the first 4 products
+    const previewProducts = products.slice(0, 4);
+    
+    catalogueGrid.innerHTML = previewProducts.map(function(product) {
+      return `
+        <div class="product-card" data-id="${product.id}">
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.name}" />
+          </div>
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p class="price" data-price-idr="${product.price}">Rp ${product.price.toLocaleString('id-ID')}</p>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Add click handlers to product cards
+    catalogueGrid.querySelectorAll('.product-card').forEach(function(card) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', function() {
+        const productId = this.getAttribute('data-id');
+        window.location.href = 'product.html?id=' + productId;
+      });
+    });
+
+    // Add animation
+    const cards = catalogueGrid.querySelectorAll('.product-card');
+    cards.forEach(function(card, index) {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      
+      setTimeout(function() {
+        card.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, index * 50);
+    });
+  }
+
+  renderCataloguePreview();
+
+  // ========================================
   // Scroll Animations (Intersection Observer)
   // ========================================
   const animatedElements = document.querySelectorAll('.feature-card, .product-card, .section-header');

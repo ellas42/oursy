@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product | Oursy</title>
+  <meta name="description" content="View product details and order your perfect bikini set." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/product.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-solid" id="navbar">
+    <div class="container">
+      <a href="skywave.html" class="nav-brand">Oursy</a>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="skywave.html#about">About</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="skywave.html#contact">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Product Detail -->
+  <section class="product-detail">
+    <div class="container">
+      <a href="catalogue.html" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+        Back to Catalogue
+      </a>
+
+      <div class="product-layout">
+        <div class="product-gallery">
+          <div class="main-image" id="main-image">
+            <div class="image-placeholder-large"></div>
+          </div>
+          <div class="thumbnail-row" id="thumbnail-row">
+          </div>
+        </div>
+
+        <div class="product-info-detail">
+          <h1 id="product-name">Midnight Set</h1>
+          <p class="product-price" id="product-price">$89</p>
+          
+          <div class="product-description">
+            <p id="product-description">Elegant and timeless, this set features a flattering silhouette with adjustable straps and moderate coverage. Perfect for beach days and poolside lounging.</p>
+          </div>
+
+          <div class="option-group">
+            <label class="option-label">Size</label>
+            <div class="size-options" id="size-options">
+              <button class="size-btn" data-size="XS">XS</button>
+              <button class="size-btn active" data-size="S">S</button>
+              <button class="size-btn" data-size="M">M</button>
+              <button class="size-btn" data-size="L">L</button>
+            </div>
+            <a href="#" class="size-guide-link">Size Guide</a>
+          </div>
+
+          <div class="option-group">
+            <label class="option-label">Color: <span id="selected-color">Black</span></label>
+            <div class="color-options" id="color-options">
+              <button class="color-btn active" data-color="Black" style="background-color: #1a1513;"></button>
+              <button class="color-btn" data-color="Nude" style="background-color: #c9a88a;"></button>
+              <button class="color-btn" data-color="Rose" style="background-color: #d4a5a5;"></button>
+              <button class="color-btn" data-color="Terracotta" style="background-color: #c67b5c;"></button>
+            </div>
+          </div>
+
+          <div class="stock-info" id="stock-info">
+            <span class="stock-dot"></span>
+            <span id="stock-text">In Stock - 3 available</span>
+          </div>
+
+          <a href="order.html" class="btn-checkout" id="checkout-btn">
+            Checkout
+          </a>
+
+          <div class="product-details-accordion">
+            <div class="accordion-item">
+              <button class="accordion-header">
+                <span>Details</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="accordion-content">
+                <ul>
+                  <li>80% Polyamide, 20% Elastane</li>
+                  <li>Adjustable straps</li>
+                  <li>Removable padding</li>
+                  <li>UPF 50+ sun protection</li>
+                </ul>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-header">
+                <span>Care</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="accordion-content">
+                <ul>
+                  <li>Hand wash in cold water</li>
+                  <li>Do not bleach</li>
+                  <li>Lay flat to dry</li>
+                  <li>Do not iron</li>
+                </ul>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-header">
+                <span>Shipping</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="accordion-content">
+                <ul>
+                  <li>Free delivery within Bali</li>
+                  <li>2-3 business days delivery</li>
+                  <li>Cash on delivery available</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="recommendations">
+    <div class="container">
+      <h2 class="section-title">You Might Also Like</h2>
+      <div class="recommendations-carousel" id="recommendations-carousel">
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn prev" id="carousel-prev">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+        </button>
+        <button class="carousel-btn next" id="carousel-next">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <footer id="contact" class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Skywave</h3>
+          <p>Made for endless summers</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Instagram</a>
+          <a href="#">Pinterest</a>
+          <a href="mailto:hello@skywave.com">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Oursy · All rights reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/product.js"></script>
+</body>
+</html>

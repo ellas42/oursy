@@ -1,0 +1,453 @@
+/* ========================================
+   Product Detail Page Styles
+======================================== */
+
+/* Back Link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--foreground-light);
+  margin-bottom: var(--spacing-lg);
+  transition: color var(--transition-fast);
+}
+
+.back-link:hover {
+  color: var(--foreground);
+}
+
+/* Product Detail Section */
+.product-detail {
+  padding-top: 7rem;
+  padding-bottom: var(--spacing-3xl);
+}
+
+.product-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+}
+
+@media (min-width: 768px) {
+  .product-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-layout {
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--spacing-3xl);
+  }
+}
+
+/* Product Gallery */
+.product-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.main-image {
+  aspect-ratio: 3 / 4;
+  background-color: var(--background-secondary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-placeholder-large {
+  width: 100%;
+  height: 100%;
+  background-color: var(--nude-light);
+}
+
+.thumbnail-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.thumbnail {
+  width: 4.5rem;
+  height: 6rem;
+  background-color: var(--background-secondary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color var(--transition-fast);
+}
+
+.thumbnail.active {
+  border-color: var(--foreground);
+}
+
+.thumbnail:hover {
+  border-color: var(--foreground-light);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: var(--nude-light);
+}
+
+/* Product Info Detail */
+.product-info-detail h1 {
+  font-size: 2rem;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  color: var(--foreground-light);
+  margin-bottom: var(--spacing-md);
+}
+
+.product-description {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--nude-light);
+}
+
+.product-description p {
+  color: var(--foreground-light);
+  line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+  .product-info-detail h1 {
+    font-size: 2.5rem;
+  }
+  
+  .product-price {
+    font-size: 1.5rem;
+  }
+}
+
+/* Option Groups */
+.option-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.option-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--foreground);
+  margin-bottom: 0.75rem;
+}
+
+/* Size Options */
+.size-options {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.size-btn {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 1px solid var(--nude-light);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.size-btn:hover {
+  border-color: var(--foreground-light);
+}
+
+.size-btn.active {
+  background-color: var(--foreground);
+  border-color: var(--foreground);
+  color: var(--background);
+}
+
+.size-guide-link {
+  font-size: 0.75rem;
+  color: var(--foreground-light);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.size-guide-link:hover {
+  color: var(--foreground);
+}
+
+/* Color Options */
+.color-options {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.color-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.color-btn::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: border-color var(--transition-fast);
+}
+
+.color-btn:hover::after {
+  border-color: var(--foreground-light);
+}
+
+.color-btn.active::after {
+  border-color: var(--foreground);
+}
+
+/* Stock Info */
+.stock-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.stock-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #4ade80;
+}
+
+.stock-info.low .stock-dot {
+  background-color: #fbbf24;
+}
+
+.stock-info.out .stock-dot {
+  background-color: #ef4444;
+}
+
+#stock-text {
+  font-size: 0.875rem;
+  color: var(--foreground-light);
+}
+
+/* Checkout Button */
+.btn-checkout {
+  display: block;
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: var(--foreground);
+  color: var(--background);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-align: center;
+  border-radius: var(--radius-base);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  margin-bottom: var(--spacing-lg);
+}
+
+.btn-checkout:hover {
+  background-color: var(--foreground-light);
+}
+
+/* Accordion */
+.product-details-accordion {
+  border-top: 1px solid var(--nude-light);
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--nude-light);
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 0;
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.accordion-header:hover {
+  color: var(--foreground-light);
+}
+
+.accordion-header svg {
+  transition: transform var(--transition-fast);
+}
+
+.accordion-item.active .accordion-header svg {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-base), padding var(--transition-base);
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 200px;
+  padding-bottom: 1rem;
+}
+
+.accordion-content ul {
+  padding-left: 1rem;
+}
+
+.accordion-content li {
+  font-size: 0.875rem;
+  color: var(--foreground-light);
+  line-height: 1.8;
+  position: relative;
+}
+
+.accordion-content li::before {
+  content: '•';
+  position: absolute;
+  left: -1rem;
+  color: var(--nude);
+}
+
+/* ========================================
+   Recommendations Section
+======================================== */
+.recommendations {
+  padding: var(--spacing-3xl) 0;
+  background-color: var(--background-secondary);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  color: var(--foreground);
+  margin-bottom: var(--spacing-lg);
+}
+
+.recommendations-carousel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 0.5rem;
+}
+
+.recommendations-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.recommendation-card {
+  flex: 0 0 auto;
+  width: 200px;
+  cursor: pointer;
+}
+
+.recommendation-card .product-image {
+  aspect-ratio: 3 / 4;
+  background-color: var(--background);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.recommendation-card .product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.recommendation-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.recommendation-card .product-info {
+  text-align: left;
+}
+
+.recommendation-card .product-info h4 {
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: 0.25rem;
+}
+
+.recommendation-card .product-info .price {
+  font-size: 0.8125rem;
+  color: var(--foreground-light);
+}
+
+.carousel-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: var(--spacing-md);
+}
+
+.carousel-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  border: 1px solid var(--nude-light);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.carousel-btn:hover {
+  border-color: var(--foreground-light);
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
+@media (min-width: 768px) {
+  .recommendation-card {
+    width: 220px;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+}

@@ -3,20 +3,6 @@
 // ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
-  
-  const products = [
-    { id: 1, name: 'Midnight Set', price: 150000, image: 'images/bikini-blackpink1-removebg-preview.png' },
-    { id: 2, name: 'Sand Dune Set', price: 150000, image: 'images/bikini-blue1-removebg-preview.png' },
-    { id: 3, name: 'Blush Wave Set', price: 150000, image: 'images/bikini-motif1-removebg-preview.png' },
-    { id: 4, name: 'Sunset Glow Set', price: 150000, image: 'images/bikini-orangepurple1-removebg-preview.png' },
-    { id: 5, name: 'Ocean Breeze Set', price: 150000, image: 'images/bikini-red1-removebg-preview.png' },
-    { id: 6, name: 'Coral Reef Set', price: 150000, image: 'images/bikini-skyblue1-removebg-preview.png' },
-    { id: 7, name: 'Sea Mist Set', price: 150000, image: 'images/bikini-white1-removebg-preview.png' },
-    { id: 8, name: 'Azure Sky Set', price: 150000, image: 'images/bikini-black1-removebg-preview1.png' },
-    { id: 9, name: 'Tropical Dusk Set', price: 150000, image: 'images/bikini-cherry1-removebg-preview.png' },
-    { id: 10, name: 'Pearl White Set', price: 150000, image: 'images/bikini-pinkbrown1-removebg-preview.png' },
-    { id: 11, name: 'Lagoon Blue Set', price: 150000, image: 'images/bikini-brown1-removebg-preview.png' },
-  ];
 
   // DOM elements
   const catalogueGrid = document.getElementById('catalogue-grid');
@@ -60,6 +46,15 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       `;
     }).join('');
+
+    // Add click handlers to product cards
+    catalogueGrid.querySelectorAll('.product-card').forEach(function(card) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', function() {
+        const productId = this.getAttribute('data-id');
+        window.location.href = 'product.html?id=' + productId;
+      });
+    });
 
     const cards = catalogueGrid.querySelectorAll('.product-card');
     cards.forEach(function(card, index) {

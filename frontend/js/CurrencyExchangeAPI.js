@@ -4,7 +4,6 @@ const SUPPORTED = ["USD", "EUR", "GBP", "AUD"];
 
 const selector = document.getElementById("currency-selector");
 
-// Fetch rates (cached)
 async function getRates() {
   const cached = localStorage.getItem("exchangeRates");
   const cachedTime = localStorage.getItem("exchangeRatesTime");

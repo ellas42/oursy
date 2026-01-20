@@ -1,12 +1,6 @@
-// ========================================
-// SkyWave Bikinis - Main JavaScript
-// ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
-  
-  // ========================================
-  // Navbar Scroll Effect
-  // ========================================
+
   const navbar = document.getElementById('navbar');
   
   function handleNavbarScroll() {
@@ -18,11 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   window.addEventListener('scroll', handleNavbarScroll);
-  handleNavbarScroll(); // Check on load
+  handleNavbarScroll(); 
 
-  // ========================================
-  // Mobile Navigation Toggle
-  // ========================================
   const navToggle = document.getElementById('nav-toggle');
   const navMenu = document.getElementById('nav-menu');
   
@@ -32,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
       navMenu.classList.toggle('active');
     });
 
-    // Close menu when clicking on a link
     const navLinks = navMenu.querySelectorAll('a');
     navLinks.forEach(function(link) {
       link.addEventListener('click', function() {
@@ -41,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', function(event) {
       if (!navbar.contains(event.target)) {
         navToggle.classList.remove('active');
@@ -50,9 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // ========================================
-  // Smooth Scroll for Anchor Links
-  // ========================================
+
   document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
@@ -73,15 +60,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // ========================================
-  // Render Catalogue Preview (First 4 products)
-  // ========================================
+ 
   function renderCataloguePreview() {
+    if (window.location.pathname.includes('catalogue')) return;
+    
     const catalogueGrid = document.getElementById('catalogue-grid');
     
     if (!catalogueGrid) return;
     
-    // Display only the first 4 products
     const previewProducts = products.slice(0, 4);
     
     catalogueGrid.innerHTML = previewProducts.map(function(product) {
@@ -98,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
       `;
     }).join('');
 
-    // Add click handlers to product cards
     catalogueGrid.querySelectorAll('.product-card').forEach(function(card) {
       card.style.cursor = 'pointer';
       card.addEventListener('click', function() {
@@ -107,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
-    // Add animation
     const cards = catalogueGrid.querySelectorAll('.product-card');
     cards.forEach(function(card, index) {
       card.style.opacity = '0';
@@ -123,9 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   renderCataloguePreview();
 
-  // ========================================
-  // Scroll Animations (Intersection Observer)
-  // ========================================
+
   const animatedElements = document.querySelectorAll('.feature-card, .product-card, .section-header');
   
   const observerOptions = {
@@ -136,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry, index) {
       if (entry.isIntersecting) {
-        // Add staggered delay based on index
         setTimeout(function() {
           entry.target.classList.add('visible');
         }, index * 100);
@@ -151,9 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
     observer.observe(element);
   });
 
-  // ========================================
-  // Product Card Hover Effect (optional enhancement)
-  // ========================================
+
   const productCards = document.querySelectorAll('.product-card');
   
   productCards.forEach(function(card) {

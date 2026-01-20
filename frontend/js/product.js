@@ -15,16 +15,13 @@ document.addEventListener('DOMContentLoaded', function() {
     { id: 11, name: 'Lagoon Blue Set', price: 150000, image: 'frontend/images/bikini-brown1-removebg-preview.png' },
   ];
 
-  // Get product ID from URL (default to 1)
   const urlParams = new URLSearchParams(window.location.search);
   const productId = parseInt(urlParams.get('id')) || 1;
   const currentProduct = products.find(function(p) { return p.id === productId; }) || products[0];
 
-  // State
   let selectedSize = 'S';
   let selectedColor = 'Black';
 
-  // DOM Elements
   const productName = document.getElementById('product-name');
   const productPrice = document.getElementById('product-price');
   const stockInfo = document.getElementById('stock-info');
@@ -38,24 +35,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const carouselPrev = document.getElementById('carousel-prev');
   const carouselNext = document.getElementById('carousel-next');
 
-  // ========================================
-  // Initialize Product
-  // ========================================
+ 
   function initProduct() {
-    // Update page title
     document.title = currentProduct.name + ' | Oursy';
     
-    // Update product info
     productName.textContent = currentProduct.name;
     productPrice.textContent = '$' + currentProduct.price;
     
-    // Update stock info
     updateStockDisplay();
     
-    // Generate thumbnails
     generateThumbnails();
     
-    // Update checkout link
     updateCheckoutLink();
   }
 
@@ -74,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function generateThumbnails() {
-    // Generate 4 thumbnail placeholders
     let html = '';
     for (let i = 0; i < 4; i++) {
       html += '<div class="thumbnail' + (i === 0 ? ' active' : '') + '" data-index="' + i + '">' +
@@ -83,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     thumbnailRow.innerHTML = html;
     
-    // Add click handlers
     thumbnailRow.querySelectorAll('.thumbnail').forEach(function(thumb) {
       thumb.addEventListener('click', function() {
         thumbnailRow.querySelectorAll('.thumbnail').forEach(function(t) {
@@ -105,9 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
     checkoutBtn.href = 'order.html?' + params.toString();
   }
 
-  // ========================================
-  // Size Selection
-  // ========================================
+
   sizeOptions.addEventListener('click', function(e) {
     if (e.target.classList.contains('size-btn')) {
       sizeOptions.querySelectorAll('.size-btn').forEach(function(btn) {
@@ -119,9 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // ========================================
-  // Color Selection
-  // ========================================
+
   colorOptions.addEventListener('click', function(e) {
     if (e.target.classList.contains('color-btn')) {
       colorOptions.querySelectorAll('.color-btn').forEach(function(btn) {
@@ -185,9 +169,6 @@ document.addEventListener('DOMContentLoaded', function() {
     recommendationsCarousel.scrollBy({ left: 240, behavior: 'smooth' });
   });
 
-  // ========================================
-  // Initialize
-  // ========================================
   initProduct();
   renderRecommendations();
 

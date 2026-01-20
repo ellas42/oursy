@@ -1,10 +1,6 @@
-// ========================================
-// Catalogue Page - Search & Sort
-// ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
 
-  // DOM elements
   const catalogueGrid = document.getElementById('catalogue-grid');
   const searchInput = document.getElementById('search-input');
   const sortSelect = document.getElementById('sort-select');
@@ -47,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
       `;
     }).join('');
 
-    // Add click handlers to product cards
     catalogueGrid.querySelectorAll('.product-card').forEach(function(card) {
       card.style.cursor = 'pointer';
       card.addEventListener('click', function() {

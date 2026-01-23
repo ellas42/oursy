@@ -1,8 +1,4 @@
-/* ========================================
-   Product Detail Page Styles
-======================================== */
 
-/* Back Link */
 .back-link {
   display: inline-flex;
   align-items: center;
@@ -17,7 +13,6 @@
   color: var(--foreground);
 }
 
-/* Product Detail Section */
 .product-detail {
   padding-top: 7rem;
   padding-bottom: var(--spacing-3xl);
@@ -43,7 +38,6 @@
   }
 }
 
-/* Product Gallery */
 .product-gallery {
   display: flex;
   flex-direction: column;
@@ -105,7 +99,6 @@
   background-color: var(--nude-light);
 }
 
-/* Product Info Detail */
 .product-info-detail h1 {
   font-size: 2rem;
   color: var(--foreground);
@@ -116,6 +109,13 @@
   font-size: 1.25rem;
   color: var(--foreground-light);
   margin-bottom: var(--spacing-md);
+}
+
+.product-total-price {
+  font-size: 1rem;
+  color: var(--foreground);
+  font-weight: 600;
+  margin-bottom: var(--spacing-lg);
 }
 
 .product-description {
@@ -139,7 +139,6 @@
   }
 }
 
-/* Option Groups */
 .option-group {
   margin-bottom: var(--spacing-md);
 }
@@ -154,7 +153,6 @@
   margin-bottom: 0.75rem;
 }
 
-/* Size Options */
 .size-options {
   display: flex;
   gap: 0.5rem;
@@ -198,7 +196,74 @@
   color: var(--foreground);
 }
 
-/* Color Options */
+.quantity-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: fit-content;
+  border: 1px solid var(--nude-light);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.qty-btn {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-right: 1px solid var(--nude-light);
+}
+
+.qty-btn:last-child {
+  border-right: none;
+  border-left: 1px solid var(--nude-light);
+}
+
+.qty-btn:hover:not(:disabled) {
+  background-color: var(--nude-light);
+  color: var(--foreground);
+}
+
+.qty-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  color: var(--foreground-light);
+}
+
+.qty-input {
+  width: 3.5rem;
+  height: 3rem;
+  border: none;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--foreground);
+  background-color: transparent;
+  padding: 0;
+}
+
+.qty-input:focus {
+  outline: none;
+}
+
+/* Remove number input spinner */
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.qty-input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .color-options {
   display: flex;
   gap: 0.75rem;
@@ -231,7 +296,6 @@
   border-color: var(--foreground);
 }
 
-/* Stock Info */
 .stock-info {
   display: flex;
   align-items: center;
@@ -259,7 +323,6 @@
   color: var(--foreground-light);
 }
 
-/* Checkout Button */
 .btn-checkout {
   display: block;
   width: 100%;
@@ -282,7 +345,19 @@
   background-color: var(--foreground-light);
 }
 
-/* Accordion */
+.btn-checkout:disabled,
+.btn-checkout[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: var(--foreground);
+}
+
+.btn-checkout:disabled:hover,
+.btn-checkout[disabled]:hover {
+  background-color: var(--foreground);
+}
+
 .product-details-accordion {
   border-top: 1px solid var(--nude-light);
 }

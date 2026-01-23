@@ -1,13 +1,4 @@
-/* ========================================
-   Order Form Page Styles - COMPLETE & FIXED
-   Works perfectly on Mobile, Tablet, and Desktop
-======================================== */
 
-/* ========================================
-   Base Styles (Mobile First)
-======================================== */
-
-/* Order Section */
 .order-section {
   padding-top: 5rem;
   padding-bottom: var(--spacing-xl);
@@ -31,16 +22,13 @@
   font-size: 0.9375rem;
 }
 
-/* Order Layout - Mobile First (Stacked) */
 .order-layout {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
 }
 
-/* ========================================
-   Order Form
-======================================== */
+
 .order-form {
   display: flex;
   flex-direction: column;
@@ -56,6 +44,7 @@
 .form-section h2 {
   font-size: 1.125rem;
   color: var(--foreground);
+  margin-top: var(--spacing-md);
   margin-bottom: var(--spacing-sm);
   padding-bottom: var(--spacing-xs);
   border-bottom: 1px solid var(--nude-light);
@@ -90,7 +79,6 @@
   letter-spacing: normal;
 }
 
-/* Form Inputs */
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -136,7 +124,6 @@
   line-height: 1.5;
 }
 
-/* Phone Input */
 .phone-input {
   display: flex;
   align-items: stretch;
@@ -150,7 +137,7 @@
   border: 1px solid var(--nude-light);
   border-right: none;
   border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-  font-size: 16px; /* Prevents iOS zoom */
+  font-size: 16px;
   color: var(--foreground-light);
   white-space: nowrap;
 }
@@ -160,14 +147,18 @@
   flex: 1;
 }
 
-/* Form Row - Stack on Mobile */
+.form-group p {
+  font-size: 0.75rem;
+  color: var(--foreground-light);
+  margin-top: 0.25rem;
+}
+
 .form-row {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
 }
 
-/* Stock Note */
 .stock-note {
   display: flex;
   align-items: center;
@@ -196,7 +187,6 @@
   background-color: #fbbf24;
 }
 
-/* Submit Button */
 .btn-submit {
   width: 100%;
   padding: 1.125rem 1.5rem;
@@ -231,14 +221,6 @@
   line-height: 1.5;
 }
 
-/* ========================================
-   Order Sidebar
-======================================== */
-.order-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
 
 .order-summary {
   background-color: var(--cream);
@@ -318,7 +300,6 @@
   color: var(--foreground);
 }
 
-/* Summary Totals */
 .summary-totals {
   padding-top: var(--spacing-xs);
 }
@@ -342,8 +323,9 @@
 }
 
 .free-shipping {
-  color: #4ade80;
+  color: var(--foreground);
   font-weight: 500;
+  text-decoration: underline;
 }
 
 
@@ -686,10 +668,9 @@
   }
 
   .order-layout {
-    display: grid;
-    grid-template-columns: 2fr 0.9fr;
+    display: flex;
+    flex-direction: column;
     gap: var(--spacing-2xl);
-    align-items: start;
   }
 
   .order-form {
@@ -790,10 +771,9 @@
   }
 
   .order-layout {
-    display: grid;
-    grid-template-columns: 2.2fr 0.9fr;
+    display: flex;
+    flex-direction: column;
     gap: 3rem;
-    align-items: start;
   }
 
   .order-form {

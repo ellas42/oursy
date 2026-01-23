@@ -13,10 +13,9 @@
 </head>
 <body>
 
-  <!-- Navbar -->
   <nav class="navbar navbar-solid" id="navbar">
     <div class="container">
-      <a href="skywave.html" class="nav-brand">Oursy</a>
+      <a href="index.html" class="nav-brand">Oursy</a>
       <ul class="nav-menu" id="nav-menu">
         <li><a href="skywave.html#about">About</a></li>
         <li><a href="catalogue.html">Catalogue</a></li>
@@ -30,7 +29,6 @@
     </div>
   </nav>
 
-  <!-- Product Detail -->
   <section class="product-detail">
     <div class="container">
       <a href="catalogue.html" class="back-link">
@@ -52,6 +50,7 @@
         <div class="product-info-detail">
           <h1 id="product-name">Midnight Set</h1>
           <p class="product-price" id="product-price">$89</p>
+          <p class="product-total-price" id="product-total-price"></p>
           
           <div class="product-description">
             <p id="product-description">Elegant and timeless, this set features a flattering silhouette with adjustable straps and moderate coverage. Perfect for beach days and poolside lounging.</p>
@@ -60,21 +59,22 @@
           <div class="option-group">
             <label class="option-label">Size</label>
             <div class="size-options" id="size-options">
-              <button class="size-btn" data-size="XS">XS</button>
-              <button class="size-btn active" data-size="S">S</button>
-              <button class="size-btn" data-size="M">M</button>
-              <button class="size-btn" data-size="L">L</button>
             </div>
             <a href="#" class="size-guide-link">Size Guide</a>
           </div>
 
           <div class="option-group">
-            <label class="option-label">Color: <span id="selected-color">Black</span></label>
+            <label class="option-label">Color: <span id="selected-color">Select a color</span></label>
             <div class="color-options" id="color-options">
-              <button class="color-btn active" data-color="Black" style="background-color: #1a1513;"></button>
-              <button class="color-btn" data-color="Nude" style="background-color: #c9a88a;"></button>
-              <button class="color-btn" data-color="Rose" style="background-color: #d4a5a5;"></button>
-              <button class="color-btn" data-color="Terracotta" style="background-color: #c67b5c;"></button>
+            </div>
+          </div>
+
+          <div class="option-group">
+            <label class="option-label">Quantity</label>
+            <div class="quantity-stepper" id="quantity-stepper">
+              <button class="qty-btn qty-minus" id="qty-minus">−</button>
+              <input type="number" class="qty-input" id="qty-input" value="1" min="1" readonly>
+              <button class="qty-btn qty-plus" id="qty-plus">+</button>
             </div>
           </div>
 
@@ -166,7 +166,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <h3>Skywave</h3>
+          <h3>Oursy</h3>
           <p>Made for endless summers</p>
         </div>
         <div class="footer-links">
@@ -181,6 +181,7 @@
   </footer>
 
   <script src="frontend/js/index.js"></script>
+  <script src="frontend/js/products.js"></script>
   <script src="frontend/js/product.js"></script>
 </body>
 </html>

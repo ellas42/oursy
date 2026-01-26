@@ -1,35 +1,48 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
-// Configuration
-define('OWNER_EMAIL', 'ellalianaa06@gmail.com');
-define('SITE_NAME', 'Oursy');
-define('FROM_EMAIL', 'ellalianaa06@gmail.com');
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'PHP Error: ' . $errstr . ' in ' . $errfile . ':' . $errline
+    ]);
+    exit();
+});
 
-// Handle CORS preflight
+require 'config.php';
+require_once __DIR__ . '/../PHPMailer-master/src/PHPMailer.php';
+require_once __DIR__ . '/../PHPMailer-master/src/Exception.php';
+require_once __DIR__ . '/../PHPMailer-master/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-// Only accept POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['success' => false, 'message' => 'Method not allowed']);
     exit();
 }
 
-// Get JSON data from request
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
-// Validate required fields
+if (!is_array($data)) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Invalid JSON received']);
+    exit();
+}
+
 $required_fields = ['fullName', 'email', 'whatsapp', 'product', 'productName', 'size', 'quantity', 'price', 'address'];
 $missing_fields = [];
 
@@ -48,18 +61,18 @@ if (!empty($missing_fields)) {
     exit();
 }
 
-// Sanitize input data
 $fullName = htmlspecialchars(strip_tags($data['fullName']));
 $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
 $whatsapp = htmlspecialchars(strip_tags($data['whatsapp']));
 $productName = htmlspecialchars(strip_tags($data['productName']));
 $size = htmlspecialchars(strip_tags($data['size']));
+////////$color = 
 $quantity = intval($data['quantity']);
 $price = floatval($data['price']);
+///////total & subtotal change $price * quantity
 $address = htmlspecialchars(strip_tags($data['address']));
 $notes = isset($data['notes']) ? htmlspecialchars(strip_tags($data['notes'])) : '';
 
-// Validate email format
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     echo json_encode([
@@ -72,82 +85,70 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 $subtotal = $price * $quantity;
 $total = $subtotal;
 
-// Create order ID
 $orderId = date('YmdHis') . '-' . uniqid();
 $timestamp = date('Y-m-d H:i:s');
 
-// Create order data array
-$orderData = [
-    'id' => $orderId,
-    'timestamp' => $timestamp,
-    'customer' => [
-        'name' => $fullName,
-        'email' => $email,
-        'whatsapp' => $whatsapp
-    ],
-    'order' => [
-        'product' => $productName,
-        'size' => $size,
-        'quantity' => $quantity,
-        'price' => $price,
-        'subtotal' => $subtotal,
-        'total' => $total
-    ],
-    'delivery' => [
-        'address' => $address,
-        'notes' => $notes
-    ]
-];
+$ownerEmailSent = sendOwnerEmail($orderId, $timestamp, $fullName, $email, $whatsapp, $productName, $size, $quantity, $price, $subtotal, $total, $address, $notes);
+$ownerError = $ownerEmailSent['success'] ? '' : $ownerEmailSent['error'];
 
-// Save order as JSON file
-$ordersDir = __DIR__ . '/../orders';
-if (!is_dir($ordersDir)) {
-    mkdir($ordersDir, 0755, true);
-}
+$customerEmailSent = sendCustomerEmail($fullName, $productName, $size, $quantity, $subtotal, $whatsapp, $email);
+$customerError = $customerEmailSent['success'] ? '' : $customerEmailSent['error'];
 
-$orderFile = $ordersDir . '/' . $orderId . '.json';
-$saved = file_put_contents($orderFile, json_encode($orderData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-
-if ($saved === false) {
+if (!$ownerEmailSent['success'] || !$customerEmailSent['success']) {
     http_response_code(500);
+    $errorMsg = 'Email Error: ';
+    if (!$ownerEmailSent['success']) $errorMsg .= 'Owner email - ' . $ownerError . '. ';
+    if (!$customerEmailSent['success']) $errorMsg .= 'Customer email - ' . $customerError;
     echo json_encode([
         'success' => false,
-        'message' => 'Failed to save order. Please try again or contact us directly.'
+        'message' => $errorMsg
     ]);
     exit();
-}
-
-// Send email to owner
-$ownerEmailSent = sendOwnerEmail($orderId, $timestamp, $fullName, $email, $whatsapp, $productName, $size, $quantity, $price, $subtotal, $total, $address, $notes);
-
-// Send confirmation email to customer
-$customerEmailSent = sendCustomerEmail($fullName, $productName, $size, $quantity, $total, $whatsapp, $email);
-
-// Log email status
-error_log("Order $orderId - Owner email: " . ($ownerEmailSent ? 'sent' : 'failed') . ", Customer email: " . ($customerEmailSent ? 'sent' : 'failed'));
-
-$message = 'Order submitted successfully! ';
-if (!$ownerEmailSent || !$customerEmailSent) {
-    $message .= '(Note: Email delivery is not configured on this server. Order saved to system.)';
-} else {
-    $message .= 'Check your email for confirmation.';
 }
 
 http_response_code(200);
 echo json_encode([
     'success' => true,
-    'message' => $message,
+    'message' => 'Order submitted successfully! Check your email for confirmation. We\'ll also contact you via WhatsApp to confirm.',
     'orderId' => $orderId
 ]);
 
-/**
- * Send email to shop owner with order details
- */
+
 function sendOwnerEmail($orderId, $timestamp, $fullName, $email, $whatsapp, $productName, $size, $quantity, $price, $subtotal, $total, $address, $notes) {
-    global $result;
-    $subject = "New Order from " . $fullName . " - " . $productName;
+
+$mail = new PHPMailer(true);
+
     
-    $htmlBody = "
+    try {
+        $mail->isSMTP();
+        $mail->Host = SMTP_HOST;
+        $mail->Port = SMTP_PORT;
+        $mail->SMTPAuth = true;
+        $mail->Username = SMTP_USERNAME;
+        $mail->Password = SMTP_PASSWORD;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->setFrom(FROM_EMAIL, SITE_NAME);
+        $mail->addAddress(OWNER_EMAIL);
+        
+        $mail->isHTML(true);
+        $mail->Subject = "New Order from " . $fullName . " - " . $productName;
+        
+        $htmlBody = getOwnerEmailHTML($orderId, $timestamp, $fullName, $email, $whatsapp, $productName, $size, $quantity, $price, $subtotal, $total, $address, $notes);
+        $mail->Body = $htmlBody;
+        $mail->AltBody = getOwnerEmailPlain($orderId, $timestamp, $fullName, $email, $whatsapp, $productName, $size, $quantity, $price, $subtotal, $total, $address, $notes);
+        
+        $result = $mail->send();
+        error_log("Owner email sent successfully to " . OWNER_EMAIL);
+        return ['success' => true, 'error' => ''];
+    } catch (Exception $e) {
+        $errorMsg = "Owner email failed: " . $mail->ErrorInfo;
+        error_log($errorMsg);
+        return ['success' => false, 'error' => $mail->ErrorInfo];
+    }
+}
+
+function getOwnerEmailHTML($orderId, $timestamp, $fullName, $email, $whatsapp, $productName, $size, $quantity, $price, $subtotal, $total, $address, $notes) {
+    return "
 <!DOCTYPE html>
 <html>
 <head>
@@ -313,6 +314,10 @@ function sendOwnerEmail($orderId, $timestamp, $fullName, $email, $whatsapp, $pro
 </html>
     ";
     
+    return $htmlBody;
+}
+
+function getOwnerEmailPlain($orderId, $timestamp, $fullName, $email, $whatsapp, $productName, $size, $quantity, $price, $subtotal, $total, $address, $notes) {
     $plainBody = "NEW ORDER FROM " . SITE_NAME . "\n";
     $plainBody .= "================================\n\n";
     $plainBody .= "ORDER ID: " . $orderId . "\n";
@@ -344,16 +349,43 @@ function sendOwnerEmail($orderId, $timestamp, $fullName, $email, $whatsapp, $pro
     $plainBody .= "Shipping: Calculated After\n";
     $plainBody .= "Total: Rp" . number_format($total, 0, ',', '.') . "\n";
     
-    return sendMultipartEmail(OWNER_EMAIL, $subject, $plainBody, $htmlBody);
+    return $plainBody;
 }
 
-/**
- * Send confirmation email to customer
- */
+//to customer
 function sendCustomerEmail($fullName, $productName, $size, $quantity, $total, $whatsapp, $customerEmail) {
-    $subject = "Order Confirmation - " . $productName;
+    $mail = new PHPMailer(true);
     
-    $htmlBody = "
+    try {
+        $mail->isSMTP();
+        $mail->Host = SMTP_HOST;
+        $mail->Port = SMTP_PORT;
+        $mail->SMTPAuth = true;
+        $mail->Username = SMTP_USERNAME;
+        $mail->Password = SMTP_PASSWORD;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->setFrom(FROM_EMAIL, SITE_NAME);
+        $mail->addAddress($customerEmail);
+        
+        $mail->isHTML(true);
+        $mail->Subject = "Order Confirmation - " . $productName;
+        
+        $htmlBody = getCustomerEmailHTML($fullName, $productName, $size, $quantity, $total, $whatsapp, $customerEmail);
+        $mail->Body = $htmlBody;
+        $mail->AltBody = getCustomerEmailPlain($fullName, $productName, $size, $quantity, $total, $whatsapp, $customerEmail);
+        
+        $result = $mail->send();
+        error_log("Customer confirmation email sent to " . $customerEmail);
+        return ['success' => true, 'error' => ''];
+    } catch (Exception $e) {
+        $errorMsg = "Customer email failed: " . $mail->ErrorInfo;
+        error_log($errorMsg);
+        return ['success' => false, 'error' => $mail->ErrorInfo];
+    }
+}
+
+function getCustomerEmailHTML($fullName, $productName, $size, $quantity, $total, $whatsapp, $customerEmail) {
+    return "
 <!DOCTYPE html>
 <html>
 <head>
@@ -440,7 +472,9 @@ function sendCustomerEmail($fullName, $productName, $size, $quantity, $total, $w
 </body>
 </html>
     ";
-    
+}
+
+function getCustomerEmailPlain($fullName, $productName, $size, $quantity, $total, $whatsapp, $customerEmail) {
     $plainBody = "Thank You for Your Order!\n";
     $plainBody .= "========================\n\n";
     $plainBody .= "Hi " . $fullName . ",\n\n";
@@ -456,34 +490,6 @@ function sendCustomerEmail($fullName, $productName, $size, $quantity, $total, $w
     $plainBody .= "Best regards,\n";
     $plainBody .= "The " . SITE_NAME . " Team\n";
     
-    return sendMultipartEmail($customerEmail, $subject, $plainBody, $htmlBody);
-}
-
-/**
- * Send multipart email (plain text + HTML)
- */
-function sendMultipartEmail($to, $subject, $plainBody, $htmlBody) {
-    $boundary = "boundary-" . md5(time() . rand());
-    
-    $headers = [];
-    $headers[] = "MIME-Version: 1.0";
-    $headers[] = "Content-Type: multipart/alternative; boundary=\"" . $boundary . "\"";
-    $headers[] = "From: " . SITE_NAME . " <" . FROM_EMAIL . ">";
-    $headers[] = "X-Mailer: PHP/" . phpversion();
-    
-    $emailBody = "--" . $boundary . "\r\n";
-    $emailBody .= "Content-Type: text/plain; charset=UTF-8\r\n";
-    $emailBody .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-    $emailBody .= $plainBody . "\r\n\r\n";
-    $emailBody .= "--" . $boundary . "\r\n";
-    $emailBody .= "Content-Type: text/html; charset=UTF-8\r\n";
-    $emailBody .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-    $emailBody .= $htmlBody . "\r\n\r\n";
-    $emailBody .= "--" . $boundary . "--";
-    
-    $result = mail($to, $subject, $emailBody, implode("\r\n", $headers));
-    error_log("Email to $to: " . ($result ? 'Success' : 'Failed'));
-    
-    return $result;
+    return $plainBody;
 }
 ?>

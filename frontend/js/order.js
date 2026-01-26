@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  
-  // Use global products array from products.js
-  // If products array doesn't exist, fallback to empty array
+
   const productsData = typeof products !== 'undefined' ? products : [];
 
   const orderForm = document.getElementById('order-form');
@@ -170,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function() {
       notes: notes
     };
     
-    // Send order to PHP backend
     fetch('php/order.php', {
       method: 'POST',
       headers: {
@@ -185,7 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (data.success) {
         alert('Order submitted successfully! Check your email for confirmation. We\'ll also contact you via WhatsApp to confirm.');
         
-        // Reset form
         orderForm.reset();
         selectedProduct = null;
         selectedSize = '';

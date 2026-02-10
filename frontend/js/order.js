@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     })
     .catch(function(error) {
-      alert('An error occurred while submitting your order. Please try again or contact us directly at ellalianaa06@gmail.com');
+      alert('An error occurred while submitting your order. Please try again or contact us directly at contact@oursy.shop');
     })
     .finally(function() {
       submitButton.disabled = false;

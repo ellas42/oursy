@@ -20,6 +20,10 @@
         <li><a href="skywave.html#about">About</a></li>
         <li><a href="catalogue.html">Catalogue</a></li>
         <li><a href="skywave.html#contact">Contact</a></li>
+        <li><a href="cart.html">
+  🛒 Cart (<span id="cart-count">0</span>)
+</a>
+</li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
         <span></span>
@@ -50,7 +54,6 @@
         <div class="product-info-detail">
           <h1 id="product-name">Midnight Set</h1>
           <p class="product-price" id="product-price">$89</p>
-          <p class="product-total-price" id="product-total-price"></p>
           
           <div class="product-description">
             <p id="product-description">Elegant and timeless, this set features a flattering silhouette with adjustable straps and moderate coverage. Perfect for beach days and poolside lounging.</p>
@@ -81,11 +84,21 @@
           <div class="stock-info" id="stock-info">
             <span class="stock-dot"></span>
             <span id="stock-text">In Stock - 3 available</span>
+
+
           </div>
+          <p class="product-total-price" id="product-total-price"></p>
+
+          <div class="buttons">
+                      <button id="addToCartBtn">Add to Cart</button>
 
           <a href="order.html" class="btn-checkout" id="checkout-btn">
             Checkout
           </a>
+
+        </div>
+
+
 
           <div class="product-details-accordion">
             <div class="accordion-item">
@@ -171,7 +184,7 @@
         </div>
         <div class="footer-links">
           <a href="https://www.instagram.com/oursy.shop">Instagram</a>
-          <a href="mailto:ellalianaa06@gmail.com">Contact</a>
+          <a href="mailto:contact@oursy.shop">Contact</a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -183,5 +196,6 @@
   <script src="frontend/js/index.js"></script>
   <script src="frontend/js/products.js"></script>
   <script src="frontend/js/product.js"></script>
+  <script src="frontend/js/cart.js"></script>
 </body>
 </html>

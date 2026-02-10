@@ -1,104 +1,40 @@
+let currentProduct = null;
+let selectedSize = '';
+let selectedColor = '';
+let selectedQuantity = 1;
+let currentImageIndex = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
+
+
+  //dont know what it is but do NOT touch. it works somehow
+  const productPageRoot = document.getElementById('product-name');
+
+  if (!productPageRoot)
+    return;
+
   
-  
-const products = [
-  { id: 1, name: 'Sport Kini', 
-    stock: 1, 
-    price: 149999, 
-    image: 'frontend/images/bikini-blackpink1-removebg-preview.png',
-    sizes: ['M'],
-    colors: [{name: 'Black', hex: '#1a1513' }],
-    details: ['80% Polyamide, 20% Elastane', 'Adjustable straps', 'Removable padding'],
-    care: ['Hand wash in cold water', 'Do not bleach', 'Lay flat to dry'],
-    shipping: ['Free delivery within Bali', '2-3 business days delivery']
-  },
-
-  { id: 2, name: 'Midnight Blue', 
-    stock: 4, 
-    price: 169999, 
-    image: 'frontend/images/bikini-blue1-removebg-preview.png',
-    sizes: ['S', 'M', 'L'],
-    colors: [{name: 'Blue', hex: '#06275f' }],
-    details: ['80% Polyamide, 20% Elastane', 'Adjustable straps', 'Removable padding'],
-    care: ['Hand wash in cold water', 'Do not bleach', 'Lay flat to dry'],
-    shipping: ['Free delivery within Bali', '2-3 business days delivery']
-  },
-
-  { id: 3, name: 'Wood Land', 
-    stock: 2, 
-    price: 129999, 
-    image: 'frontend/images/bikini-motif1-removebg-preview.png',
-    sizes: ['L'],
-    colors: [{name: 'Motif', hex: '#a67c52' }],
-    details: ['80% Polyamide, 20% Elastane', 'Adjustable straps', 'Removable padding'],
-    care: ['Hand wash in cold water', 'Do not bleach', 'Lay flat to dry'],
-    shipping: ['Free delivery within Bali', '2-3 business days delivery']  
-  },
-
-  { id: 4, name: 'Sunset Glow', 
-    stock: 2, 
-    price: 129999, 
-    image: 'frontend/images/bikini-orangepurple1-removebg-preview.png',
-    sizes: ['M'],
-    colors: [{name: 'Orange Purple', hex: '#d9744c' }],
-    details: ['80% Polyamide, 20% Elastane', 'Adjustable straps', 'Removable padding'],
-    care: ['Hand wash in cold water', 'Do not bleach', 'Lay flat to dry'],
-    shipping: ['Free delivery within Bali', '2-3 business days delivery']
-  },
-
-  { id: 5, name: 'Hearts of Ours', 
-    stock: 3, 
-    price: 169999, 
-    image: 'frontend/images/bikini-red1-removebg-preview.png',
-    sizes: ['S'],
-    colors: [{name: 'Red', hex: '#b11226' }, {name: 'Pink', hex: '#e75480' }, {name: 'White', hex: '#ffffff' }],
-    details: ['80% Polyamide, 20% Elastane', 'Adjustable straps', 'Removable padding'],
-    care: ['Hand wash in cold water', 'Do not bleach', 'Lay flat to dry'],
-    shipping: ['Free delivery within Bali', '2-3 business days delivery']
-  },
-
-  { id: 6, name: 'Coral Reef Set', 
-    stock: 2, 
-    price: 149999, 
-    image: 'frontend/images/bikini-skyblue1-removebg-preview.png',
-    sizes: ['M'],
-    colors: [{name: 'Sky Blue', hex: '#5bc0de' }],
-    details: ['80% Polyamide, 20% Elastane', 'Adjustable straps', 'Removable padding'],
-    care: ['Hand wash in cold water', 'Do not bleach', 'Lay flat to dry'],
-    shipping: ['Free delivery within Bali', '2-3 business days delivery']
-  },
-
-  { id: 7, name: 'Cherry Love Set', 
-    stock: 1, 
-    price: 129999, 
-    image: 'frontend/images/bikini-cherry1-removebg-preview.png',
-    sizes: ['S'],
-    colors: [{name: 'White with Cherry Motifs', hex: '#ff4d6d' }],
-    details: ['80% Polyamide, 20% Elastane', 'Adjustable straps', 'Removable padding'],
-    care: ['Hand wash in cold water', 'Do not bleach', 'Lay flat to dry'],
-    shipping: ['Free delivery within Bali', '2-3 business days delivery']
-  },
-
-  { id: 8, name: 'Lagoon Blue Set', 
-    stock: 1, 
-    price: 139999, 
-    image: 'frontend/images/bikini-brown1-removebg-preview.png',
-    sizes: ['S'],
-    colors: [{name: 'Brown with White Straps', hex: '#6f4e37' }],
-    details: ['80% Polyamide, 20% Elastane', 'Adjustable straps', 'Removable padding'],
-    care: ['Hand wash in cold water', 'Do not bleach', 'Lay flat to dry'],
-    shipping: ['Free delivery within Bali', '2-3 business days delivery']
-  },
-];
-
-
   const urlParams = new URLSearchParams(window.location.search);
-  const productId = parseInt(urlParams.get('id')) || 1;
-  const currentProduct = products.find(function(p) { return p.id === productId; }) || products[0];
+  const productId = parseInt(urlParams.get('id'), 10);
 
-  let selectedSize = '';
-  let selectedColor = '';
+   if (!Number.isInteger(productId)) return;
+
+
+  if (!productId) {
+    alert('Product not found');
+    window.location.href = 'catalogue.html';
+    return;
+  }
+
+currentProduct = products.find(p => p.id === productId);
+
+  if (!currentProduct) {
+    alert('Product not found');
+    window.location.href = 'catalogue.html';
+    return;
+  }
+
+
 
   const productName = document.getElementById('product-name');
   const productPrice = document.getElementById('product-price');
@@ -115,6 +51,7 @@ const products = [
   const qtyMinus = document.getElementById('qty-minus');
   const qtyPlus = document.getElementById('qty-plus');
   const thumbnailRow = document.getElementById('thumbnail-row');
+  const mainImage = document.getElementById('main-image');
   const recommendationsCarousel = document.getElementById('recommendations-carousel');
   const carouselPrev = document.getElementById('carousel-prev');
   const carouselNext = document.getElementById('carousel-next');
@@ -177,21 +114,18 @@ const products = [
   function updateQuantityButtons() {
     const maxQuantity = Math.min(currentProduct.stock, 5);
     
-    // Disable minus if quantity is 1 or stock is 1
     if (selectedQuantity <= 1 || currentProduct.stock === 1) {
       qtyMinus.disabled = true;
     } else {
       qtyMinus.disabled = false;
     }
     
-    // Disable plus if quantity reaches max stock
     if (selectedQuantity >= maxQuantity || currentProduct.stock === 1) {
       qtyPlus.disabled = true;
     } else {
       qtyPlus.disabled = false;
     }
     
-    // Disable both if only 1 stock
     if (currentProduct.stock === 1) {
       qtyMinus.disabled = true;
       qtyPlus.disabled = true;
@@ -221,11 +155,13 @@ const products = [
       }
     });
   }
-
+////////////////////////////////////////////////
+  //put on checkout button [CHECKOUT -- {total}]
   function updateTotalPrice() {
     const totalPrice = currentProduct.price * selectedQuantity;
-    productTotalPrice.textContent = 'Total: Rp' + totalPrice;
+    productTotalPrice.textContent = 'Total: Rp' + totalPrice.toLocaleString('id-ID');
   }
+  ///////////////////////////////////////////////////
 
   function renderDetails() {
     const detailsHTML = '<ul>' + currentProduct.details.map(function(detail) {
@@ -238,7 +174,7 @@ const products = [
     document.title = currentProduct.name + ' | Oursy';
     
     productName.textContent = currentProduct.name;
-    productPrice.textContent = 'Rp' + currentProduct.price;
+    productPrice.textContent = 'Rp' + currentProduct.price.toLocaleString('id-ID');
     
     renderSizes();
     renderColors();
@@ -269,28 +205,45 @@ const products = [
     }
   }
 
-  function generateThumbnails() {
-    const mainImage = document.getElementById('main-image');
-    const imgTag = '<img src="' + currentProduct.image + '" alt="' + currentProduct.name + '">';
+  function updateMainImage(index) {
+    currentImageIndex = index;
+    const imgTag = '<img src="' + currentProduct.images[index] + '" alt="' + currentProduct.name + '">';
     mainImage.innerHTML = imgTag;
+  }
+
+  function generateThumbnails() {
+    // Show first image in main display
+    updateMainImage(0);
     
+    // Generate thumbnails based on available images
     let html = '';
-    for (let i = 0; i < 4; i++) {
-      html += '<div class="thumbnail' + (i === 0 ? ' active' : '') + '" data-index="' + i + '">' +
-                '<img src="' + currentProduct.image + '" alt="' + currentProduct.name + ' view ' + (i + 1) + '">' +
+    currentProduct.images.forEach(function(imagePath, index) {
+      html += '<div class="thumbnail' + (index === 0 ? ' active' : '') + '" data-index="' + index + '">' +
+                '<img src="' + imagePath + '" alt="' + currentProduct.name + ' view ' + (index + 1) + '">' +
               '</div>';
-    }
+    });
+    
     thumbnailRow.innerHTML = html;
     
+    // Add click listeners to thumbnails
     thumbnailRow.querySelectorAll('.thumbnail').forEach(function(thumb) {
       thumb.addEventListener('click', function() {
+        const index = parseInt(this.getAttribute('data-index'));
+        
+        // Remove active class from all thumbnails
         thumbnailRow.querySelectorAll('.thumbnail').forEach(function(t) {
           t.classList.remove('active');
         });
+        
+        // Add active class to clicked thumbnail
         this.classList.add('active');
+        
+        // Update main image
+        updateMainImage(index);
       });
     });
   }
+
 
   function updateCheckoutLink() {
     if (!selectedSize || !selectedColor) {
@@ -313,8 +266,6 @@ const products = [
     checkoutBtn.href = 'order.html?' + params.toString();
   }
 
-
-  // Prevent checkout if size/color not selected
   checkoutBtn.addEventListener('click', function(e) {
     if (!selectedSize || !selectedColor) {
       e.preventDefault();
@@ -338,11 +289,11 @@ const products = [
     recommendations.forEach(function(product) {
       html += '<div class="recommendation-card" data-id="' + product.id + '">' +
                 '<div class="product-image">' +
-                  '<div class="image-placeholder"></div>' +
+                  '<img src="' + product.images[0] + '" alt="' + product.name + '">' +
                 '</div>' +
                 '<div class="product-info">' +
                   '<h4>' + product.name + '</h4>' +
-                  '<p class="price">$' + product.price + '</p>' +
+                  '<p class="price">Rp' + product.price.toLocaleString('id-ID') + '</p>' +
                 '</div>' +
               '</div>';
     });
@@ -368,3 +319,52 @@ const products = [
   renderRecommendations();
 
 });
+
+
+  const addToCartBtn = document.getElementById('addToCartBtn');
+
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener('click', function() {
+    
+
+if (!currentProduct) {
+  alert('Product not found');
+  window.location.href = 'catalogue.html';
+  return;
+}
+
+      const sizeOptions = document.querySelectorAll('.size-option');
+  sizeOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      sizeOptions.forEach(opt => opt.classList.remove('selected'));
+      this.classList.add('selected');
+    });
+  });
+
+if (!selectedSize) {
+  alert('Please select a size');
+  return;
+}
+
+if (!selectedColor) {
+  alert('Please select a color');
+  return;
+}
+
+
+      
+      
+      addToCart({
+        id: currentProduct.id,
+        name: currentProduct.name,
+        price: currentProduct.price,
+        image: currentProduct.images[0],
+        size: selectedSize,
+        color: selectedColor,
+        quantity: selectedQuantity
+      });
+      
+    });
+  }
+  
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oursy - Your Cart</title>
+
+  <link rel="stylesheet" href="frontend/css/cart.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous" />
+</head>
+
+<body>
+
+<h1>Your Cart</h1>
+
+<div id="cart-items"></div>
+
+<h3>Total: Rp <span id="cart-total">0</span></h3>
+
+<a href="order.html">Checkout</a>
+
+<script src="frontend/js/cart.js"></script>
+
+<script>
+function formatRupiah(num) {
+  return num.toLocaleString('id-ID');
+}
+
+function renderCart() {
+  const cart = getCart();
+  const container = document.getElementById('cart-items');
+  container.innerHTML = '';
+
+  if (!cart.length) {
+    container.innerHTML = '<p>Your cart is empty</p>';
+    document.getElementById('cart-total').textContent = '0';
+    return;
+  }
+
+  cart.forEach((item, index) => {
+    container.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.image || 'frontend/images/placeholder.png'}" width="80">
+
+        <div>
+          <strong>${item.name}</strong><br>
+          Size: ${item.size}<br>
+          Color: ${item.color}<br>
+          Rp ${formatRupiah(item.price)}
+        </div>
+
+        <input type="number" min="1" value="${item.quantity}"
+          onchange="updateQuantity(${index}, this.value)">
+
+        <button onclick="removeFromCart(${index})">✕</button>
+      </div>
+    `;
+  });
+
+  document.getElementById('cart-total').textContent =
+    formatRupiah(getCartTotal());
+}
+
+renderCart();
+</script>
+
+</body>
+</html>

@@ -112,10 +112,14 @@
 }
 
 .product-total-price {
-  font-size: 1rem;
+  text-align: center;
+  font-size: 1.25rem;
   color: var(--foreground);
   font-weight: 600;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  border: 1.5px solid var(--foreground);
+  border-radius: 16px;
+  padding: 10px;
 }
 
 .product-description {
@@ -323,9 +327,33 @@
   color: var(--foreground-light);
 }
 
-.btn-checkout {
-  display: block;
-  width: 100%;
+.buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+.buttons #addToCartBtn {
+  width: 45%;
+  padding: 1rem 2rem;
+  background-color: var(--foreground);
+  color: var(--background);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-align: center;
+  border-radius: var(--radius-base);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  margin-bottom: var(--spacing-lg);
+}
+.buttons .btn-checkout {
+  width: 45%;
   padding: 1rem 2rem;
   background-color: var(--foreground);
   color: var(--background);
@@ -493,6 +521,8 @@
 }
 
 .carousel-controls {
+  align-items: center;
+  justify-content: center;
   display: flex;
   gap: 0.5rem;
   margin-top: var(--spacing-md);

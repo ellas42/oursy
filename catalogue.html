@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catalogue | SkyWave Bikinis</title>
+  <title>Catalogue | Oursy</title>
   <meta name="description" content="Browse our full collection of bikinis. Filter by name or sort by price." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="frontend/css/index.css" />
   <link rel="stylesheet" href="frontend/css/catalogue.css" />
 </head>
@@ -19,6 +20,10 @@
       <ul class="nav-menu" id="nav-menu">
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="cart.html">
+  <i class="fa-regular fa-cart-shopping"></i> (<span id="cart-count">0</span>)
+</a>
+</li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
         <span></span>
@@ -82,7 +87,7 @@
         </div>
         <div class="footer-links">
           <a href="https://www.instagram.com/oursy.shop">Instagram</a>
-          <a href="mailto:ellalianaa06@gmail.com">Contact</a>
+          <a href="mailto:contact@oursy.shop">Contact</a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -95,5 +100,6 @@
 <script src="frontend/js/catalogue.js"></script>
 <script src="frontend/js/index.js"></script>
 <script src="frontend/js/product.js"></script>
+<script src="frontend/js/cart.js"></script>
 </body>
 </html>

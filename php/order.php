@@ -355,6 +355,9 @@ function getOwnerEmailPlain($orderId, $timestamp, $fullName, $email, $whatsapp, 
 //to customer
 function sendCustomerEmail($fullName, $productName, $size, $quantity, $total, $whatsapp, $customerEmail) {
     $mail = new PHPMailer(true);
+    $mail->SMTPDebug = 2;
+$mail->Debugoutput = 'error_log';
+
     
     try {
         $mail->isSMTP();
